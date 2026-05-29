@@ -343,14 +343,14 @@ def mp_game_setup(game, bot_skill: int = 0):
     if bot_skill == 0:
         # easy bots
         game.add_game_args(
-            f"+viz_bots_path {ROOT}/doom_arena/scenarios/doom_arena/bots/easy.cfg"
+            f'+viz_bots_path "{ROOT}/doom_arena/bots/easy.cfg"'
         )
     if bot_skill == 1:
         pass
     if bot_skill >= 2:
         # hard bots
         game.add_game_args(
-            f"+viz_bots_path {ROOT}/doom_arena/scenarios/doom_arena/bots/hard.cfg"
+            f'+viz_bots_path "{ROOT}/doom_arena/bots/hard.cfg"'
         )
     return game
 
@@ -678,7 +678,12 @@ class PlayerEnv(Env):
             if state.depth_buffer is not None:
                 obs["depth"] = state.depth_buffer[None]
             if state.automap_buffer is not None:
-                obs["automap"] = state.automap_buffer
+                automap = state.automap_buffer
+                if automap.ndim == 2:
+                    automap = automap[None]
+                elif automap.shape[-1] in (1, 3):
+                    automap = np.moveaxis(automap, -1, 0)
+                obs["automap"] = automap
         return state, obs, done
 
     def _update_frame_stack(self, obs, reset: bool = False):
