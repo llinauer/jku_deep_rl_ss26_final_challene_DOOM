@@ -266,7 +266,12 @@ class PlayerEnv(Env):
             if state.depth_buffer is not None:
                 obs["depth"] = state.depth_buffer[None]
             if state.automap_buffer is not None:
-                obs["automap"] = state.automap_buffer
+                automap = state.automap_buffer
+                if automap.ndim == 2:
+                    automap = automap[None]
+                elif automap.shape[-1] in (1, 3):
+                    automap = np.moveaxis(automap, -1, 0)
+                obs["automap"] = automap
         return state, obs, done
 
     def _update_frame_stack(self, obs, reset: bool = False):

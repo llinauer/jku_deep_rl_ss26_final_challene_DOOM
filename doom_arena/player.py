@@ -1,6 +1,10 @@
 import enum
+from pathlib import Path
+
 import vizdoom as vzd
-import os
+
+
+BOTS_DIR = Path(__file__).resolve().parent / "bots"
 
 
 class PlayerHostConfig(object):
@@ -194,12 +198,12 @@ def mp_game_setup(game, bot_skill: int = 0):
     game.add_game_args("+nomonsters 1")
     if bot_skill == 0:
         # easy bots
-        game.add_game_args(f"+viz_bots_path {os.getcwd()}/doom_arena/bots/easy.cfg")
+        game.add_game_args(f'+viz_bots_path "{(BOTS_DIR / "easy.cfg").as_posix()}"')
     if bot_skill == 1:
         pass
     if bot_skill >= 2:
         # hard bots
-        game.add_game_args(f"+viz_bots_path {os.getcwd()}/doom_arena/bots/hard.cfg")
+        game.add_game_args(f'+viz_bots_path "{(BOTS_DIR / "hard.cfg").as_posix()}"')
     return game
 
 
