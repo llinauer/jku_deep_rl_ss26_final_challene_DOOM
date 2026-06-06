@@ -1,0 +1,22 @@
+[project]
+name = "doom-train"
+version = "0.1.0"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "torch==2.10.0",
+  "numpy==1.26.4",
+  "vizdoom==1.3.0",
+  "portpicker==1.6.0",
+  "onnx==1.21.0",
+  "onnx2pytorch==0.5.3",
+  "gymnasium==0.29.1",
+  "sample-factory==2.1.1",
+  "torchvision",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["doom_arena*", "agents*"]
