@@ -16,19 +16,31 @@ It is set up as a deathmatch, and can be played as a single agent against bots, 
 
 ## Setup
 
-### Using pip
+### Using uv
 ```bash
-git clone https://github.com/gerkone/jku.wad
-cd jku.wad
-pip install -r requirements.txt
+git clone <your-repo-url> doom_challenge
+cd doom_challenge
+uv venv --python 3.11
+uv sync
 ```
 
-### Using conda/mamba
+This creates `.venv/` and installs the exact dependencies from `pyproject.toml`.
+
+## Training
+
+Start training with the Sample Factory APPO setup:
 ```bash
-git clone https://github.com/gerkone/jku.wad
-cd jku.wad
-conda env create -f environment.yaml  # or mamba env create -f environment.yaml
-conda activate jku_wad
+uv run python doom_train.py --experiment <experiment_name> --seed 1337
+```
+
+Artifacts are written to:
+```text
+runs/<experiment_name>/
+```
+
+During training, the current best checkpoint is exported automatically to:
+```text
+runs/<experiment_name>/best_model.onnx
 ```
 
 
