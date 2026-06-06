@@ -1,0 +1,12 @@
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Create venv
+uv venv --python 3.11
+
+# sync & activate
+uv sync
+source .venv/bin/activate
+
+# run training
+uv run python doom_train.py -- # choose args
