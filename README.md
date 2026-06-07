@@ -21,7 +21,7 @@ It is set up as a deathmatch, and can be played as a single agent against bots, 
 git clone <your-repo-url> doom_challenge
 cd doom_challenge
 uv venv --python 3.11
-uv sync
+uv sync --frozen
 ```
 
 This creates `.venv/` and installs the exact dependencies from `pyproject.toml`.
